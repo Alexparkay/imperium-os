@@ -59,6 +59,8 @@ If it lists your real folders and files, the connector is live. As a stress test
 
 ## What can go wrong
 
+- **The list comes back empty but you KNOW files exist.** Your Dropbox is a Business/team account and the files live in a team space - the default connection only sees the personal root. Tell the chat: "my dropbox lists empty". The system will detect it (empty root listing + non-zero usage in `rclone about`) and reconnect using the team namespace (`--dropbox-root-namespace <team-ns-id>`). Common on exactly the accounts businesses have; takes one minute.
+
 - **The browser sign-in shows the wrong account.** Sign out of Dropbox in the browser, sign into the right account, then say "retry the Dropbox connection".
 - **"Token expired" weeks later.** Sign-ins age out occasionally. Say "refresh the Dropbox connection" and approve once more.
 - **The system seems to be downloading something huge.** It shouldn't, by rule. If you ever see your disk filling, say "stop, you're downloading media" and it will halt and switch to streaming.

@@ -58,6 +58,8 @@ If it answers with your real events, the connector is live. As a second check, a
 
 ## What can go wrong
 
+- **Google shows a scary "unverified app" or "Google hasn't verified this app" screen during sign-in.** This is normal for a personal command-line connection (it's YOUR connection to YOUR account, not a published app). Click "Advanced" then "Go to ... (unsafe)" - the wording is alarming but the access is the one you're granting yourself. If you're not comfortable, stop and do this connector with the build team instead; nothing else depends on it today.
+
 - **Wrong account got connected.** Say "disconnect Google and redo the sign-in", then make sure the right account is chosen on Google's account picker.
 - **Google blocks the sign-in with a warning screen.** On unverified credentials this is normal: click "Advanced", then "Go to [project name]". It's your own credential; you're trusting yourself.
 - **Your company admin controls app access.** You may need your Workspace admin to approve the connection. The system can draft the request email for you.

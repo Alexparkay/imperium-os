@@ -6,7 +6,7 @@ status: template
 
 <!--
 TEMPLATE: filled during onboarding Phase 2 (the business interview).
-Replace every {{PLACEHOLDER}} with the real value. Keep each section short:
+Replace every double-brace placeholder token with the real value. Keep each section short:
 this file is what a fresh session reads to understand the company in 60 seconds.
 A fully worked FICTIONAL example follows the template so you can see the target shape.
 -->

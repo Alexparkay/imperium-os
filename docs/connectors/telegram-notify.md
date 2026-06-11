@@ -53,6 +53,8 @@ The bot can only message people who have messaged it first. So:
 
 The system then looks up your chat id (the address your messages come from), saves it as `TELEGRAM_CHAT_ID`, and finishes the wiring.
 
+*(For the system: there is no helper script for this step - call the Bot API directly: `curl -s "https://api.telegram.org/bot<TOKEN>/getUpdates"` and read `result[0].message.chat.id` from the reply to their hello message. Never echo the token.)*
+
 ## Step 5: Verify
 
 The system runs the notifier (`automations/notify/notify.js`) with a test message. Within a few seconds your phone should buzz with something like:

@@ -22,17 +22,18 @@ Rules live in two tiers (see `.claude/rules/INDEX.md`): always-on files in `.cla
 4. **Persist immediately** to `memory/` (lowercase, always). Targets table below. Always-on: `03`.
 5. **Run commands yourself.** Never tell the owner to run a command.
 6. **Content = no AI smell.** Voice profile: `content-pipeline/voice-profile/`; banned words: `.claude/skills/voice-check.md`. Writing content → read `rules-import/05`; the owner's own voice → `rules-import/25`; warm prose register → `rules-import/15`.
-7. **Always push after work:** `git add -A && git commit && git push origin main`. If a deploy target is configured ({{DEPLOY_TARGET}}), also deploy changed service code. Never leave uncommitted work. Detail: `rules-import/06`.
+7. **Always push after work:** `git add -A && git commit && git push origin main`. If a deploy target is configured (none by default; onboarding Phase 4 sets one if the owner deploys services), also deploy changed service code. Never leave uncommitted work. Detail: `rules-import/06`.
 8. **Google Workspace = gws CLI only** (`gws docs|sheets|drive|calendar|gmail ...`, `supportsAllDrives: true` for shared drives). MCP Google tools are deny-listed in settings. Creating a Doc → read `rules-import/09` (use `scripts/gdoc-markdown.js`, no tables in Docs). Detail: `rules-import/08`.
 9. **Quality gate before delivery** on any significant deliverable: score harshly, iterate to avg ≥9 / no dimension <7, max 3 passes. Always-on: `10`.
 10. **Brain dumps through the router** (>50 words conversational → braindump-router skill pipeline). Always-on: `18`.
 11. **Owner privacy list: never reveal it.** Configured in onboarding Phase 1. Always-on: `13`.
 12. **Financial figures come from code/files with provenance, never from the model.** Always-on: `31`.
-13. **Media + artifacts:** generated media → Media Hub shared drive (read `rules-import/07`); large media lives in {{MEDIA_STORE}} (read `rules-import/22`); >500MB downloads banned - stream instead (read `rules-import/21`).
-14. **Delivering files/diagrams to the owner:** markdown links for .md; PDFs/contracts also get a `file://` URL; Excalidraw always gets a clickable excalidraw.com URL (read `rules-import/24` + `rules-import/30`).
-15. **Task completion comms:** significant task done → notify via `node scripts/notify.js` (read `rules-import/12`); task/deadline changes → sync `memory/kanban.md` + `memory/calendar.md` (read `rules-import/16`).
-16. **AI image/video of the owner** → configured Soul ID `{{OWNER_SOUL_ID}}`, optional Higgsfield module (read `rules-import/26`).
-17. **Optional comms modules:** WhatsApp → MCP tools only, never SQL (read `rules-import/14`); Telegram queries → run on-demand sync first (read `rules-import/23`).
+13. **Unwired data gets a pipe-aware answer, never a bare refusal.** When asked for something that lives in an unconnected tool (margins in the accounting system, analytics in a platform), say WHERE it lives and WHEN the pipe arrives ("that lives in QuickBooks - that pipe isn't connected yet; it's a build item"), then offer the nearest wired answer. A bare "I can't" reads as "the brain is dumb" and kills adoption.
+14. **Media + artifacts:** generated media → Media Hub shared drive (read `rules-import/07`); large media lives in {{MEDIA_STORE}} (read `rules-import/22`); >500MB downloads banned - stream instead (read `rules-import/21`).
+15. **Delivering files/diagrams to the owner:** markdown links for .md; PDFs/contracts also get a `file://` URL; Excalidraw always gets a clickable excalidraw.com URL (read `rules-import/24` + `rules-import/30`).
+16. **Task completion comms:** significant task done → notify via `node scripts/notify.js` (read `rules-import/12`); task/deadline changes → sync `memory/kanban.md` + `memory/calendar.md` (read `rules-import/16`).
+17. **AI image/video of the owner** → configured Soul ID `{{OWNER_SOUL_ID}}`, optional Higgsfield module (read `rules-import/26`).
+18. **Optional comms modules:** WhatsApp → MCP tools only, never SQL (read `rules-import/14`); Telegram queries → run on-demand sync first (read `rules-import/23`).
 
 ## Memory write targets
 

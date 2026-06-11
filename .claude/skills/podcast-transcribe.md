@@ -7,6 +7,9 @@ created: 2026-05-07
 updated: 2026-06-11
 ---
 
+> **Module acquisition:** the `automations/` module this skill wraps is NOT in the starter kit. It is installed by the build team during a full engagement, or built on request - say "I want the [name] module" in the chat and it goes on the build list (see docs/connectors/not-yet.md). Skills must not pretend the module exists.
+
+
 # podcast-transcribe - Repeatable Podcast Transcription Pipeline
 
 > **OPTIONAL MODULE.** Requires the `automations/podcast-transcribe/` module, rclone configured against the media store remote ({{MEDIA_STORE}}), and `ASSEMBLYAI_API_KEY` in the root `.env`.

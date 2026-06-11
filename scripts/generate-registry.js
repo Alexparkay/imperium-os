@@ -48,7 +48,7 @@ function firstLineMatching(file, re) {
 
 const lines = [];
 const warnings = [];
-const now = new Date().toISOString().slice(0, 10);
+const now = (() => { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`; })(); // local date, not UTC - east-of-UTC mornings were stamping yesterday
 
 lines.push('---', 'title: Registry (generated)', 'type: index', 'status: generated', `updated: ${now}`, '---', '');
 lines.push('# Registry - generated from disk, do not hand-edit');
@@ -95,7 +95,14 @@ lines.push('');
 
 // duplication check: same rule file in project and user-global (they drift)
 for (const f of [...alwaysRules, ...importRules]) {
-  if (globalRules.includes(f)) warnings.push(`rule ${f} also exists in user-global ~/.claude/rules/ - the project copy is canonical here; remove the user-global one to avoid drift`);
+  if (globalRules.includes(f) && process.env.OS_VENDOR_MACHINE !== "1") {
+    let same = false;
+    try {
+      const projPath = [path.join(rulesDir, f), path.join(ROOT, '.claude', 'rules-import', f)].find(p => fs.existsSync(p));
+      same = !!projPath && fs.readFileSync(projPath, "utf8") === fs.readFileSync(path.join(globalRulesDir, f), "utf8");
+    } catch {}
+    if (!same) warnings.push(`rule ${f} differs from the user-global ~/.claude/rules/ copy - project copy is canonical for this folder; reconcile (do not blindly delete either)`);
+  }
 }
 
 // ---- Clients ----

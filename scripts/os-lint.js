@@ -11,7 +11,7 @@ const { execSync } = require('child_process');
 
 const ROOT = path.resolve(__dirname, '..');
 const HOME = process.env.USERPROFILE || process.env.HOME || '';
-const today = new Date().toISOString().slice(0, 10);
+const today = (() => { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`; })(); // local date, not UTC - east-of-UTC mornings were stamping yesterday
 const findings = { critical: [], warn: [], info: [] };
 
 function sh(cmd) {
@@ -58,7 +58,17 @@ const projRules = [...mdFiles(path.join(ROOT, '.claude', 'rules')), ...mdFiles(p
 const globRules = HOME ? mdFiles(path.join(HOME, '.claude', 'rules')) : [];
 // In this OS the project copy of every rule is canonical (the product ships them). A same-named
 // user-global rule is the owner's own setup; flag the drift risk, never block on it.
-for (const f of projRules) if (globRules.includes(f)) findings.warn.push(`rule ${f} also exists in your user-global ~/.claude/rules/ - the project copy is canonical here; remove the user-global one to avoid drift`);
+const vendorMachine = process.env.OS_VENDOR_MACHINE === "1"; // set on Imperium-staffed machines: their user-global rules serve OTHER projects and must not be deleted
+for (const f of projRules) if (globRules.includes(f)) {
+  if (vendorMachine) continue;
+  let same = false;
+  try {
+    const projPath = [path.join(ROOT, '.claude', 'rules', f), path.join(ROOT, '.claude', 'rules-import', f)].find(p => fs.existsSync(p));
+    same = !!projPath && fs.readFileSync(projPath, "utf8") === fs.readFileSync(path.join(HOME, '.claude', 'rules', f), "utf8");
+  } catch {}
+  if (same) findings.info.push(`rule ${f} also exists user-globally (identical copy, harmless; project copy is canonical here)`);
+  else findings.warn.push(`rule ${f} differs from your user-global ~/.claude/rules/ copy - the project copy is canonical for THIS folder; reconcile the difference (do not blindly delete either)`);
+}
 
 // ---------- 4. Stale persistence targets (CLAUDE.md table vs git dates) ----------
 const claudeMd = read(path.join(ROOT, '.claude', 'CLAUDE.md'));

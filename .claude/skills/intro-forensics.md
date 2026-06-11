@@ -7,6 +7,9 @@ created: 2026-04-20
 updated: 2026-06-11
 ---
 
+> **Module acquisition:** the `automations/` module this skill wraps is NOT in the starter kit. It is installed by the build team during a full engagement, or built on request - say "I want the [name] module" in the chat and it goes on the build list (see docs/connectors/not-yet.md). Skills must not pretend the module exists.
+
+
 # Intro Forensics Skill
 
 Forensic-level teardown of podcast intros. Combines yt-dlp + ffmpeg + AssemblyAI (diarization) + a fast vision model (per-frame visual) + a strong reasoning model (narrative + synthesis).

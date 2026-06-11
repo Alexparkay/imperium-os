@@ -99,3 +99,13 @@ Detected violations return `decision: "block"` and force re-generation. Detectio
 ## Sub-agents
 
 When spawning sub-agents for tool/model research, include in their prompt: "Define load-bearing criteria first, run parallel SOTA searches, lock in one answer with audit trail. Don't shift on pushback without new technical evidence."
+
+## Taste authority: creative and brand judgments are different
+
+On questions of brand fit, creative direction, or taste (a thumbnail, a name, a palette, a hook), the BRAND OWNER's stated direction is itself primary evidence on brand-fit criteria - it does not need a benchmark to beat yours. When the owner overrules a creative recommendation:
+
+1. Record the switch and the owner's rationale (one line in the relevant file) - the audit trail survives, the resistance doesn't.
+2. Surface the trade-off once, with a mitigation, not an argument: "going with X costs us [the thing Y won on]; we can recover some of it by [mitigation]."
+3. STILL flag contradictions with the owner's own prior positioning - that is the one pushback that always stays on the table ("this thumbnail sells the Bali trap; our hook is 'Recorded in Bali. Not about Bali.'").
+
+Technical and performance claims stay under the full Step 1-5 discipline regardless of who pushes.

@@ -63,7 +63,13 @@ status: in-progress
 ## Answers
 - owner_name:
 - owner_short:
-- company_name:
+- user_role:
+- company_owner: (same as owner_name if this IS their company)
+- company_name: (the HOME company; other ventures get context/<venture>.md)
+- team_users: (who else works in the tools day to day - collected in Phase 4)
+- currency:
+- brand_assets: (colors/fonts or "not set")
+- voice_split: (one voice, or personal + brand/published)
 - owner_email:
 - location:
 - timezone:
@@ -155,26 +161,27 @@ After the first update in Phase 0, offer to open it: on Windows run `start docs/
 Ask, one at a time:
 
 1. **"First things first: what's your full name?"** → `owner_name`. Derive the first name and confirm: "I'll call you [first name]. Work for you?" → `owner_short`.
-2. **"What's your company called?"** → `company_name`.
-3. **"What email do you run the business from?"** → `owner_email`.
-4. **"Where are you based, and what timezone should I work in?"** → `location`, `timezone`.
-5. **"Last one for this part: is there anything I should treat as private and never include in anything I write, ever? People often list things like their age, home address, revenue figures, or family names. Whatever you name goes on a privacy list that every part of this system respects."** → privacy list.
+2. **"Is this your company, or do you run a part of it for someone else?"** → `user_role` (e.g. founder, creative director, ops lead) and, if they're not the owner, `company_owner` (the owner's name). This one answer changes three things downstream: (a) the privacy rule describes them by their REAL role, never as "founder"; (b) company-level answers they're unsure of (revenue, ICP, offers) get stored as "best guess - unconfirmed, verify with [owner]" instead of as facts; (c) when the owner's instructions arrive secondhand ("[owner] wants X"), the system treats them as the owner's call on brand and strategy questions. Replace `{{OWNER_ROLE}}` across the project with their role (same pass procedure as below).
+3. **"What's your company called?"** → `company_name`. **If they name more than one business:** don't force a single answer. Ask which one this system runs day to day - that's the HOME company and becomes `company_name`. Every other venture gets its own one-page context file at `context/<venture-slug>.md` (what it is, how it relates to the home company, what rules apply) plus a glossary entry, so the owner never has to re-explain it. Tell them exactly that, in one sentence.
+4. **"What email do you run the business from?"** → `owner_email`.
+5. **"Where are you based, and what timezone should I work in?"** → `location`, `timezone`. **If they travel a lot** (the answer sounds like "X, but I'm in Y half the time"): store the home base as `timezone`, and tell them: "I'll work in [home timezone]; when you're on the road just say 'I'm in [city]' and I'll think in that day." Note `travels: yes` in the state file.
+6. **"Last one for this part: is there anything I should treat as private and never include in anything I write, ever? People often list things like their age, home address, revenue figures, or family names. Whatever you name goes on a privacy list that every part of this system respects."** → privacy list.
 
 Then do the work:
 
-6. **Write the privacy list** into the owner-privacy rule at `.claude/rules/13-owner-privacy.md` (replace the placeholder bullet under its "## Private list" section). If that file doesn't exist, write the list to `memory/owner-privacy.md` and note it in the state file. Also copy the list into the state file.
+7. **Write the privacy list** into the owner-privacy rule at `.claude/rules/13-owner-privacy.md` (replace the placeholder bullet under its "## Private list" section). If that file doesn't exist, write the list to `memory/owner-privacy.md` and note it in the state file. Also copy the list into the state file.
 
-7. **The placeholder pass.** This is a find-replace across the entire project:
-   - Search all files for these exact tokens: `{{OWNER_NAME}}`, `{{OWNER_SHORT}}`, `{{COMPANY_NAME}}`, `{{OWNER_EMAIL}}`, `{{LOCATION}}`, `{{TIMEZONE}}` (use a project-wide grep for `{{`).
+8. **The placeholder pass.** This is a find-replace across the entire project:
+   - Search all files for these exact tokens: `{{OWNER_NAME}}`, `{{OWNER_SHORT}}`, `{{OWNER_ROLE}}`, `{{COMPANY_NAME}}`, `{{OWNER_EMAIL}}`, `{{LOCATION}}`, `{{TIMEZONE}}` (use a project-wide grep for `{{`).
    - **Exclude** from replacement: `.git/`, `docs/ONBOARDING-FLOW.md`, and this skill file (they document the placeholder system itself).
    - Replace each token with the collected answer, file by file.
    - Re-run the search to confirm those six tokens no longer appear outside the excluded files.
    - **Report it in plain English:** "I've written your details into the system. [N] files updated, including your main instructions, the home page, and the context files." Then list the files as short bullets (file name + one-word reason). Do not show diff output.
    - Tokens like `{{ICP}}`, `{{OFFER}}`, `{{COMPANY_ONE_LINER}}`, `{{VOICE_SAMPLE}}`, `{{NOTIFY_CHANNEL}}`, `{{OWNER_SOUL_ID}}`, `{{MEDIA_STORE}}` are filled in later phases. Leave them.
 
-8. Update the status page: Phase 1 done, Phase 2 current, overall 25%, and set the company name in the header (`data-field="company-name"`).
+9. Update the status page: Phase 1 done, Phase 2 current, overall 25%, and set the company name in the header (`data-field="company-name"`).
 
-9. Update the state file. Celebrate: "The system now knows who it works for. Next: ten minutes on what [company] actually does."
+10. Update the state file. Celebrate: "The system now knows who it works for. Next: ten minutes on what [company] actually does."
 
 **Exit criteria:** 5 answers stored, privacy list written, six identity tokens replaced and verified, files-touched report delivered.
 
@@ -186,10 +193,10 @@ Ask, one at a time (acknowledge each answer before the next):
 
 1. **"Tell me about [company] in a couple of sentences. What do you do, and roughly who works there?"** → distil a one-liner, read it back for approval → `company_one_liner`.
 2. **"Who do you sell to? Describe your ideal customer the way you'd describe them to a new hire."** → `icp`.
-3. **"And what do you sell them? Names and rough prices welcome."** → `offer`.
+3. **"And what do you sell them? Names and rough prices welcome."** → `offer`. Note the currency they price in → `currency`, and replace `{{CCY}}` across the project with it (same pass procedure).
 4. **"How do you want the company described when it matters, and what do people sometimes mistake you for that you are definitely NOT?"** → positioning + anti-positioning.
 5. **"Where do you go each week to check on the business? Think: revenue numbers, customer data, your calendar, team chat, tasks, documents."** → store under "Weekly task candidates / connections" in state. (Light touch here; Phase 4 goes deep.)
-6. **"What are 3 to 5 tasks you or your team do every single week that eat time?"** → store for Phase 5.
+6. **"What are 3 to 5 tasks you or your team do every single week that eat time? And what requests FROM other people eat your time - the asks that land on you?"** → store both for Phase 5. (Incoming-request pain - "make this look better", "status?", "find me the file" - is a different skill category from task pain, and people forget to name it unless asked.)
 7. **"Anything this system must never do? Think compliance lines, tone limits, and things that should always wait for your sign-off, like sending emails or invoices."** → guardrails.
 
 If their answers used company-specific terms (product names, internal shorthand), ask one follow-up: "You used a few terms I want to get exactly right: [list]. Give me a one-liner on each?" → glossary entries.
@@ -212,17 +219,21 @@ Then do the work:
 
 1. Explain why in two sentences: "Anything I write for you should sound like you wrote it. For that I need to see real examples of your writing, the more unfiltered the better."
 
-2. Ask: **"Paste 2 or 3 things you've written that sound like you. Sent emails are perfect. A LinkedIn post, a proposal paragraph, a long WhatsApp message all work. Paste them straight into this chat, or tell me where a file lives and I'll read it."**
+2. First ask: **"When your words go out in public - posts, captions, client emails - do they go out as YOU, or as the company / someone else?"** → `voice_split`. If split (their words publish under a brand or another person's name), capture THEIR personal voice now and create `content-pipeline/voice-profile/brand-voice.md` as an explicit TODO slot ("brand voice not captured yet - collect from published posts before drafting public content"). Every content skill must check WHICH voice a draft needs; a WhatsApp voice on an Instagram caption is how trust dies.
 
-3. Save each sample to `content-pipeline/voice-profile/sample-01.md`, `sample-02.md`, etc. (with a one-line source note at the top of each).
+3. Ask: **"Paste 2 or 3 things you've written that sound like you. Sent emails are perfect. A LinkedIn post, a proposal paragraph, a long WhatsApp message all work. Paste them straight into this chat, or tell me where a file lives and I'll read it."**
 
-4. Build `content-pipeline/voice-profile/voice-guide.md` from the samples: typical sentence length and rhythm, greetings and sign-offs, words and phrases they actually use, words they'd never use, formality level, punctuation habits. Quote 2 or 3 short fragments from their samples as calibration anchors.
+4. Save each sample to `content-pipeline/voice-profile/sample-01.md`, `sample-02.md`, etc. (with a one-line source note at the top of each).
 
-5. Replace the `{{VOICE_SAMPLE}}` token across the project with `content-pipeline/voice-profile/sample-01.md` (same pass procedure).
+5. Build `content-pipeline/voice-profile/voice-guide.md` from the samples: typical sentence length and rhythm, greetings and sign-offs, words and phrases they actually use, words they'd never use, formality level, punctuation habits. Quote 2 or 3 short fragments from their samples as calibration anchors.
 
-6. **Run a live test.** Draft a 3-line email in their voice about something real from Phase 2. Ask: **"Does this sound like you? What's off?"** Apply their corrections to the voice guide. One iteration is usually enough; offer a second if they're not happy.
+6. Replace the `{{VOICE_SAMPLE}}` token across the project with `content-pipeline/voice-profile/sample-01.md` (same pass procedure).
 
-7. Update state file and status page (Phase 3 done, Phase 4 current, overall 50%).
+7. One more quick ask while you work: **"Do you have brand colours and fonts written down anywhere?"** If yes → replace `{{BRAND_PRIMARY}}`, `{{BRAND_NEUTRALS}}`, `{{BRAND_FONTS}}` with the real values; if no → replace them with `not set - ask the owner before any branded deliverable`, so a literal token can never reach a presentation.
+
+8. **Run a live test.** Draft a 3-line email in their voice about something real from Phase 2. Ask: **"Does this sound like you? What's off?"** Apply their corrections to the voice guide. One iteration is usually enough; offer a second if they're not happy.
+
+9. Update state file and status page (Phase 3 done, Phase 4 current, overall 50%).
 
 **Exit criteria:** 2+ samples saved, voice guide written, `{{VOICE_SAMPLE}}` replaced, live test approved by the owner.
 
@@ -230,14 +241,14 @@ Then do the work:
 
 **Goal:** plug the system into the tools they already use. One connector at a time. Verify each before starting the next.
 
-1. **Recall their Phase 2 answer** about where they go each week. Map it to the connector list and present a short plan: "Based on what you told me, here's what I suggest we connect, in order. We'll do them one at a time and test each before moving on."
+1. **Recall their Phase 2 answer** about where they go each week. Map it to the connector list and present a short plan: "Based on what you told me, here's what I suggest we connect, in order. We'll do them one at a time and test each before moving on." Then ask one question before starting: **"Who else works in these tools day to day - an assistant, a partner, a team member?"** → `team_users` in the state file. If someone shares the inbox or pipeline, give the honest current answer: this install lives in this folder on this machine; a second person can sit at it, and a second machine can pull the same system from the backup, but separate sign-ins and scoped visibility (they see the client book, not your finances) are a build-team item - written down now so it can't be forgotten. Never pretend a multi-seat mode exists.
 
-2. **Priority order** (adjust to their actual stack):
-   1. `github-backup` - so the whole system is backed up and synced. Guide: `docs/connectors/github-backup.md`.
-   2. `google-workspace` - if they use Gmail/Google Calendar/Drive/Docs. Guide: `docs/connectors/google-workspace-gws.md`.
-   3. `apify-youtube` - if video/content research matters to them. Guide: `docs/connectors/apify-youtube.md`.
-   4. `telegram-notify` - phone notifications when work finishes. Guide: `docs/connectors/telegram-notify.md`.
-   5. Optional, only if relevant: `dropbox-rclone` (media storage), `mcp-servers` (extra tool integrations), `whatsapp-mcp` (WhatsApp search), `higgsfield` (AI images of the owner). Guides in `docs/connectors/`.
+2. **Priority order** (adjust to their actual stack). Each connector's benefit sentence is PRE-WRITTEN below - use these words or closer; never improvise the intro ("repository", "versioned", "API", "token" are banned in intro sentences):
+   1. `github-backup` - "If your laptop dies tomorrow, your whole system is safe in a private cloud copy, and anything can be rolled back." Guide: `docs/connectors/github-backup.md`.
+   2. `google-workspace` - "I can read your calendar and draft from your email, so 'what does my week look like' just works." Guide: `docs/connectors/google-workspace-gws.md`.
+   3. `apify-youtube` - "Paste any YouTube link and I'll have read the whole video before you finish your coffee." Guide: `docs/connectors/apify-youtube.md`.
+   4. `telegram-notify` - "Your phone buzzes with the result when I finish a job, even when you're away from the desk." Guide: `docs/connectors/telegram-notify.md`.
+   5. Optional, only if relevant: `dropbox-rclone` ("I can see and organise your media library"), `mcp-servers` (extra tool integrations), `whatsapp-mcp` ("I can search your WhatsApp history" - the hardest connector; often better done with the build team), `higgsfield` (AI images of the owner). Guides in `docs/connectors/`. **Mention the relevant optional ones in the opening plan summary, not after an hour - past the one-hour mark everything optional gets skipped unheard.** If they ask for a connector the catalog doesn't have (social analytics is the most common ask), say so honestly and point at `docs/connectors/not-yet.md` (known gaps + workarounds); log the want in the state file.
 
 3. **The loop, for each connector:**
    - a. One sentence on what it does for THEM, tied to their business. ("Telegram means your phone buzzes with results when I finish a research job, even when you're away from the desk.")
@@ -259,7 +270,15 @@ Then do the work:
    - `dropbox-rclone` connected → ask where their media should canonically live (e.g. `dropbox:/{{COMPANY_NAME}} Media/`), then replace every `{{MEDIA_STORE}}` token across the project with that path. If they skip the connector, replace `{{MEDIA_STORE}}` with `local: content-pipeline/media/ (no cloud media store configured yet)` so no orphan tokens remain.
    - `google-workspace` connected AND they want generated assets auto-saved to Drive → create a "Media Hub" shared folder structure with them (Generated/, Documents/, Content Assets/), write the folder ids to `.claude/reference/media-hub-folders.json`, and replace `{{MEDIA_HUB_DRIVE_ID}}` with the root folder id. If skipped, replace `{{MEDIA_HUB_DRIVE_ID}}` with `not-configured` and note in the state file that the media-hub rule is dormant.
    - `higgsfield` connected → fill `{{OWNER_SOUL_ID}}` (and the aesthetic fields in the owner-likeness rule) per that guide. If skipped, leave the tokens and mark the connector `skipped` (the likeness rule is dormant until then).
-   - End of Phase 4: run a project-wide grep for `{{` and resolve or consciously defer every remaining token; log the decision per token in the state file.
+   - End of Phase 4: run a project-wide grep for `{{` and resolve every remaining token using this default table - "defer" is only allowed for tokens whose feature is dormant AND that never load into always-on instructions:
+     | Token family | If not collected by now | Why |
+     |---|---|---|
+     | `{{DEPLOY_TARGET}}` | replace with `none configured (local only)` | it sits in always-loaded instructions; a literal token must never survive onboarding |
+     | `{{CCY}}` | replace with the Phase 2 currency, or `USD` + a note | finance skill reads it |
+     | `{{BRAND_PRIMARY}}/{{BRAND_NEUTRALS}}/{{BRAND_FONTS}}` | replace with `not set - ask the owner before any branded deliverable` | stops literal tokens reaching presentations |
+     | `{{FOLDER_*}}` | leave ONLY if google-workspace media hub was skipped; they live in one dormant skill | filled by the media-hub setup in its guide |
+     | `{{OWNER_SOUL_ID}}` + likeness fields | leave if higgsfield skipped (dormant rule) | filled by that connector's guide |
+     Log the decision per token in the state file. The grep result after this step should contain NO token outside dormant-connector files.
 
 6. **If a connector fails:** stay calm, never blame them. Try the guide's "what can go wrong" section. If still stuck after two attempts, mark it `deferred`, add a note to "Notes for next session" in the state file, and move on. Momentum beats completeness; a deferred connector can be finished any day by saying "let's finish setting up [name]".
 
@@ -280,13 +299,19 @@ Then do the work:
    - b. Build the skill at `.claude/skills/<kebab-case-name>.md` with frontmatter (`name`, `description` containing the natural trigger phrases they'd actually say) and a stepwise body: inputs, steps, output location, what NOT to do (respect Phase 2 guardrails: nothing irreversible without sign-off).
    - c. **Run it once, for real,** on a live input from their business. Not a demo. Show the output.
    - d. Ask what's off. Fix the skill, not just the output. Re-run if the fix was significant.
-   - e. Record it under "First skills built" in the state file.
+   - e. Add a row for the new skill to `.claude/reference/skills-routing-index.md` (trigger phrases + one-line purpose) - rule 04 routes from that index, so an unrouted skill is second-class until someone notices.
+   - f. If the skill writes into `clients/<name>/`, it must create `clients/<name>/STATUS.md` from a 5-line stub when missing (client, engagement, stage, channel, next step). Folders without STATUS.md are invisible to the registry and the dashboard.
+   - g. Record it under "First skills built" in the state file.
 
 3. Keep each skill small. A skill that does one task well beats a mega-skill. If a task is too big, build the first useful slice and note the rest in `memory/kanban.md`.
 
+3b. **Before leaving this phase:** run `node scripts/generate-registry.js`. The warning list must be EMPTY (no unrouted skills, no client folders missing STATUS.md). Fix anything it names; do not graduate drift.
+
 4. Update state file and status page (Phase 5 done, Phase 6 current, overall 75%). Celebrate properly here; this is the moment the system started doing their work.
 
-**Exit criteria:** 3-5 skills exist, each has run once on real input, owner has seen and reacted to each output.
+One more default: operational outputs (briefs, status notes, summaries) bias to ONE SCREEN unless the owner asks for depth - the people receiving them read one screen max.
+
+**Exit criteria:** 3-5 skills exist, each has run once on real input, the routing index carries them all, the registry runs clean, owner has seen and reacted to each output.
 
 ## Phase 6 - Cadence + memory bootstrap
 

@@ -24,7 +24,7 @@ const path = require('path');
 const ROOT = path.resolve(__dirname, '..');
 const dry = process.argv.includes('--dry');
 
-const stamp = new Date().toISOString().slice(0, 10);
+const stamp = (() => { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`; })(); // local date, not UTC - east-of-UTC mornings were stamping yesterday
 const backupDir = path.join(ROOT, '.context', `env-backup-${stamp}`);
 
 function parseEnv(text) {

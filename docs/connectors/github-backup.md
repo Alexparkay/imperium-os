@@ -44,8 +44,9 @@ The system will:
 
 1. Check that git is installed on your machine, and install or guide the install if not.
 2. Sign you into GitHub from this machine. A browser window will open and ask you to approve; click **Authorize**. You may be shown a short code to type into the browser; the system will tell you exactly what to do.
-3. Point the folder at your repository and push the first backup.
-4. From then on, push a backup automatically every time it finishes a piece of work.
+3. Check for folders that are themselves git projects (`find . -name .git -not -path "./.git*"`). Any found get added to the ignore list FIRST and you're told what was excluded and why - otherwise they'd be saved as broken pointers and silently missing from your backup (this bites anyone who clones a dashboard or tool inside their system).
+4. Point the folder at your repository and push the first backup.
+5. From then on, push a backup automatically every time it finishes a piece of work.
 
 ## Step 4: Verify
 

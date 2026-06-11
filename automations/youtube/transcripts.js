@@ -56,7 +56,11 @@ async function getTranscript(videoUrl) {
 
   const results = dataRes.data;
   if (!results || results.length === 0) {
-    throw new Error('No transcript data returned');
+    console.log('');
+    console.log('This video has no transcript available - usually it simply has no captions in any language.');
+    console.log('That happens; it is not a setup problem. Try another link to confirm the connector works.');
+    console.log('(More: docs/connectors/apify-youtube.md, "What can go wrong".)');
+    process.exit(0);
   }
 
   return results;

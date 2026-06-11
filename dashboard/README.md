@@ -19,6 +19,9 @@ After onboarding is complete AND at least 2 data connectors are live (for exampl
 
 ## Reference architecture
 
+- **Component base (start here):** clone the house admin template `https://github.com/Alexparkay/Imperium-Admin` (public) into this folder:
+  `git clone --depth 1 https://github.com/Alexparkay/Imperium-Admin.git dashboard/<board-name>` then `git remote remove origin` inside it, and add `dashboard/<board-name>/` to the OS's `.gitignore` BEFORE the next backup push - a nested git clone otherwise gets committed as a broken pointer and silently drops out of the backup.
+  Build notes from real installs: replace the root route (it redirects to a template example), override the global metadata title (it says "Imperium Admin" in the browser tab), prefer literal brand hex values over the theme token system for contracted palettes, and ignore the ~25 example dashboard routes.
 - **Default:** Next.js app deployed to Vercel, Supabase (free tier) as the data layer, small sync scripts that parse the repo's markdown into tables on a schedule or on git push
 - **Lighter alternative:** sheet-backed (Google Sheets as the store, a single static page reading it) for owners who don't want another service
 - Read-only first. Editing stays in the repo/chat where the audit trail lives. Write-back is a later phase if ever.

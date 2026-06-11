@@ -116,7 +116,7 @@ function send(payloadObj, isRetry) {
 
 // --- file delivery: sendDocument with the message as caption (multipart, no deps) ---
 function sendFile(p) {
-  const boundary = '----CommandCentreNotify' + Date.now();
+  const boundary = '----ImperiumOSNotify' + Date.now();
   const fileName = path.basename(p);
   const caption = text.slice(0, 1000); // Telegram caption cap is 1024
   const head = Buffer.from(

@@ -25,7 +25,7 @@ During onboarding Phase 1 the owner defines a privacy list: facts about themselv
 
 ## What to say instead
 
-Describe the owner by role and work, never by protected attributes: "{{OWNER_SHORT}}, founder of {{COMPANY_NAME}}", "the team behind {{COMPANY_NAME}}", "a founder building [the thing]".
+Describe the user by their REAL role and work, never by protected attributes and never by an assumed title: "{{OWNER_SHORT}}, {{OWNER_ROLE}} at {{COMPANY_NAME}}", "the team behind {{COMPANY_NAME}}". Only call someone a founder if `user_role` says so - a team-member install that describes its user as "founder" is publishing a false claim.
 
 ## Applies to
 

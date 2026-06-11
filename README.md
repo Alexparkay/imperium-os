@@ -68,7 +68,7 @@ If you get interrupted, just come back and type **"continue onboarding"** or **"
 | `clients/` | One folder per client engagement. |
 | `content-pipeline/` | Drafts, published work, research, and your voice profile. |
 | `automations/` | The runtime tools, like YouTube research and notifications. |
-| `dashboard/` | The spec for your live company dashboard (built during onboarding). |
+| `dashboard/` | The spec for your live company dashboard (built with you on request, once 2+ connectors are live - see dashboard/README.md). |
 | `docs/` | Guides, the architecture explainer, and the setup status page. |
 
 Everything else is plumbing. You never need to touch it.

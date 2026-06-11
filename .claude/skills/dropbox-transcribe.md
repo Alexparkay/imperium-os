@@ -8,6 +8,9 @@ updated: 2026-06-11
 audience: the owner
 ---
 
+> **Module acquisition:** the `automations/` module this skill wraps is NOT in the starter kit. It is installed by the build team during a full engagement, or built on request - say "I want the [name] module" in the chat and it goes on the build list (see docs/connectors/not-yet.md). Skills must not pretend the module exists.
+
+
 # dropbox-transcribe - On-Demand Media-Store Folder Transcription
 
 > **What this is.** A pipeline + framework for transcribing any media-store folder of videos. Streams the source video without ever touching local disk, sends audio to AssemblyAI, writes timestamped markdown back alongside each source file. Idempotent re-runs skip already-done files via cloud `file_id` match.
@@ -218,3 +221,7 @@ The bottleneck is the downlink fetching source video from the cloud CDN. Assembl
 - [[podcast-transcribe]]
 - [[podcast-intro-production]]
 - [[media-hub]]
+
+## Triage heuristic: fake "edited" duplicates
+
+When auditing a media folder, two files with the SAME byte size and same/near mtime where one is named like an output ("Edited", "Final", "Master") are usually a byte-copy of the raw, not an edit. Flag as `suspected duplicate (byte-copy)` and verify with a hash before counting it as finished work or deleting anything. Real installs have found 80+ GB of these masquerading as finished edits.
