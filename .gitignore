@@ -72,3 +72,6 @@ automations/youtube/*.txt
 
 # Binary blobs
 *.bin
+
+# repo banner (rasterised wordmark + plate, light/dark)
+!docs/assets/*.png
