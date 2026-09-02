@@ -1,5 +1,8 @@
 <p align="center">
-  <img src="docs/assets/hero.svg" alt="Imperium OS — an AI operating system for your company" width="100%"/>
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="docs/assets/banner-dark.png">
+    <img src="docs/assets/banner.png" alt="Imperium OS: an AI operating system for your company. You, the brain, and its five organs: context, memory, skills, connectors, self-maintenance." width="100%">
+  </picture>
 </p>
 
 <p align="center">
@@ -15,10 +18,13 @@ An AI operating system for your company, installed in about an hour.
 
 Imperium OS turns Claude Code into a system that knows your business, remembers everything you tell it, runs your repeat work through pre-built skills, and gets sharper every week you use it. You talk to it in plain English. It does the technical work.
 
-It's the same system [Imperium Growth](https://imperium-growth.com) runs its own company on - packaged so the install is a conversation, not a project.
+It's the same system [Imperium](https://www.imperiumos.ai) runs its own company on - packaged so the install is a conversation, not a project.
 
 <p align="center">
-  <img src="docs/assets/flow.svg" alt="Install flow: clone, say the line, interview, connect tools, first skills, compounding" width="100%"/>
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="docs/assets/install-flow-dark.svg">
+    <img src="docs/assets/install-flow.svg" alt="Install flow: clone the repo, say the line, it interviews you, connect your tools, first skills live, it compounds" width="100%">
+  </picture>
 </p>
 
 ## Install (the whole thing)
@@ -43,7 +49,10 @@ Get interrupted? Come back any day and type **"continue onboarding"** or **"wher
 ## What onboarding looks like
 
 <p align="center">
-  <img src="docs/assets/phases.svg" alt="The eight onboarding phases" width="100%"/>
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="docs/assets/onboarding-phases-dark.svg">
+    <img src="docs/assets/onboarding-phases.svg" alt="The eight onboarding phases: welcome, identity, business, voice, connections, first skills, cadence, graduation" width="100%">
+  </picture>
 </p>
 
 Eight short phases, one question at a time, about an hour of your attention in total. Whether you're a founder, a CEO with three ventures, a creative director inside someone else's company, or an operator with a portfolio of projects - the interview adapts: it asks whose company this is, which business is home base, and whether your public words go out as you or as the brand.
@@ -53,7 +62,10 @@ A live progress page ([docs/setup-status.html](docs/setup-status.html) - open it
 ## What's inside
 
 <p align="center">
-  <img src="docs/assets/architecture.svg" alt="Architecture: you, the brain, and the six organs - context, memory, skills, connectors, self-maintenance" width="100%"/>
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="docs/assets/os-architecture-dark.svg">
+    <img src="docs/assets/os-architecture.svg" alt="Architecture: you, the brain, and the five organs: context, memory, skills, connectors, self-maintenance" width="100%">
+  </picture>
 </p>
 
 - **44 skills.** Pre-built workflows for content, research, client delivery, strategy, quality control, and more. Each one triggers automatically when you ask for something it covers.
@@ -92,8 +104,8 @@ v0.2 was hardened by running two full overnight install simulations against real
 
 First line of support is the chat itself: describe what happened in plain English and it will diagnose and fix most things on its own. The five-minute orientation lives at [docs/START-HERE.md](docs/START-HERE.md), the visual map at [docs/system-map.html](docs/system-map.html), and the engineering story at [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 
-Want it installed for you, wired into your real stack (CRM, accounting, call transcripts, WhatsApp, dashboards), and tuned in person? That's what [Imperium Growth](https://imperium-growth.com) does.
+Want it installed for you, wired into your real stack (CRM, accounting, call transcripts, WhatsApp, dashboards), and tuned in person? That's what [Imperium](https://www.imperiumos.ai) does.
 
 ---
 
-<p align="center"><b>Imperium OS</b> · built by <b>Imperium Growth</b> · clone it, say hello, own your operating system</p>
+<p align="center"><b>Imperium OS</b> · built by <b>Imperium</b> · clone it, say hello, own your operating system</p>
